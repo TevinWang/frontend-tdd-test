@@ -16,7 +16,7 @@ export function getUserRating(user) {
     }
 
     rating += user.games.won * 3;
-    console.log
+
     rating += user.games.draw;
 
     rating -= user.games.lost;
