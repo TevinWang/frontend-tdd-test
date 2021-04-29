@@ -3,6 +3,8 @@ export function getUserRating(user) {
 
     rating += user.yearsActive;
 
+    rating += Math.floor(user.yearsActive / 5) * 2;
+
     if (user.membershipLevel === 'free') {
         rating += 0;
     } else if (user.membershipLevel === 'gold') {
@@ -14,7 +16,7 @@ export function getUserRating(user) {
     }
 
     rating += user.games.won * 3;
-
+    console.log
     rating += user.games.draw;
 
     rating -= user.games.lost;
@@ -25,6 +27,7 @@ export function getUserRating(user) {
 
     var totalGames = user.games.won + user.games.draw + user.games.lost + user.games.forfeited;
     rating += Math.floor(totalGames / 10);
+
 
     return rating;
 }

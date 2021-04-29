@@ -60,23 +60,27 @@ describe('getUserRating', () => {
             });
             expect(getUserRating(user)).toEqual(8);
         });
-        it('should return 1 point for a user with 2 wins 0 draws 1 loss 2 forfeit', () => {
-            const user = createUser({}, {
+        it('should return 8 points for a user with 2 wins 0 draws 1 loss 2 forfeit and gold membership', () => {
+            const user = createUser({
+                membershipLevel: 'gold'
+            }, {
                 won: 2,
                 draw: 0,
                 lost: 1,
                 forfeited: 2,
             });
-            expect(getUserRating(user)).toEqual(1);
+            expect(getUserRating(user)).toEqual(8);
         });
-        it('should return 10 points for a user with 15 wins 0 draws 15 losses 0 forfeit', () => {
-            const user = createUser({}, {
+        it('should return 43 points for a user with 15 wins 0 draws 15 losses 0 forfeit and 23 years active', () => {
+            const user = createUser({
+                yearsActive: 23,
+            }, {
                 won: 5,
                 draw: 0,
                 lost: 3,
                 forfeited: 0,
             });
-            expect(getUserRating(user)).toEqual(12);
+            expect(getUserRating(user)).toEqual(43);
         });
     });
 
