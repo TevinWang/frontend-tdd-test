@@ -1,47 +1,30 @@
 export function getUserRating(user) {
-  let rating = 0;
-  
-  rating += user.yearsActive * 1;
+    let rating = 0;
 
-  if (user.yearsActive >= 5) {
-    if (user.yearsActive % 5 === 0) {
-      rating += (user.yearsActive / 5) * 2;
-    }
-  }
+    rating += user.yearsActive;
 
-  if (user.membershipLevel !== 'free') {
-    if (user.membershipLevel === 'gold') {
-      rating += 3;
+    if (user.membershipLevel === 'free') {
+        rating += 0;
+    } else if (user.membershipLevel === 'gold') {
+        rating += 3;
+    } else if (user.membershipLevel === 'silver') {
+        rating += 2;
+    } else {
+        rating += 1;
     }
-  
-    if (user.membershipLevel === 'silver') {
-      rating += 2;
-    }
-  
-    if (user.membershipLevel === 'bronze') {
-      rating += 1;
-    }  
-  } else {
-    rating += 0;
-  }
 
-  if (user.games.won) {
     rating += user.games.won * 3;
-  }
 
-  if (user.games.draw) {
-    rating += user.games.draw * 1;
-  }
+    rating += user.games.draw;
 
-  if (user.games.lost) {
-    rating -= user.games.lost * 1;
-  }
+    rating -= user.games.lost;
 
-  if (user.games.forfeited) {
-    if (user.membershipLevel !== 'go1d') {
-      rating -= user.games.forfeited * 2;
+    if (user.membershipLevel !== 'gold') {
+        rating -= user.games.forfeited * 2;
     }
-  }
 
-  return rating;
+    var totalGames = user.games.won + user.games.draw + user.games.lost + user.games.forfeited;
+    rating += Math.floor(totalGames / 10);
+
+    return rating;
 }
